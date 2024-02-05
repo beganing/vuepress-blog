@@ -9,7 +9,7 @@ bannerBrand:
   bgImage: "/bg.svg"
   title: zhangslのBlog
   description: Code is Life
-  tagline: 在无止境的代码世界遨游，用代码改变我们的生活。
+  tagline: 没有BUG的代码是不完美的！
   # buttons:
   #   - { text: Guide, link: "/vuepress-blog/docs/guide/introduce" }
   #   - {
