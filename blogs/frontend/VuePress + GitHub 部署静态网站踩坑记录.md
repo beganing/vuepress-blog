@@ -2,7 +2,7 @@
 title: VuePress + GitHub 部署静态网站踩坑记录
 date: 2024/02/04
 tags:
-  - vuepress
+  - VuePress
 categories:
   - 前端
 ---
