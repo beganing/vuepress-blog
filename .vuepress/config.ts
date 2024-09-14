@@ -1,6 +1,23 @@
 import { defineUserConfig } from 'vuepress';
 import type { DefaultThemeOptions } from 'vuepress';
 import recoTheme from 'vuepress-theme-reco';
+import * as fs from 'fs';
+
+/**
+ * 获取对应文件夹中的文件数组, 用于series中的配置项
+ * @param dir 文件夹路径 '.vuepress/dist/docs/learning-record/xxx'
+ * @returns 文件数组 ['1', '2', ...]
+ */
+const getFiles = (dir: string) => {
+  const files = fs.readdirSync(dir);
+
+  return files.map((file) => {
+    return file.slice(0, file.lastIndexOf('.'));
+  });
+};
+// 获取 postgis 文件夹下的文件
+const postgis_dir: string = '.vuepress/dist/docs/learning-record/PostGIS';
+const postgis_file_arr = getFiles(postgis_dir);
 
 export default defineUserConfig({
   base: '/vuepress-blog/', // 配置路径
@@ -9,6 +26,7 @@ export default defineUserConfig({
   port: 8090,
   open: false,
   theme: recoTheme({
+    // password: 'd8d641f02750b97dbac4daed617ffba4',
     style: '@vuepress-reco/style-default',
     logo: '/logo.png',
     author: 'zhangsl',
@@ -22,7 +40,8 @@ export default defineUserConfig({
       '/docs/learning-record/PostGIS/': [
         {
           text: 'PostGIS',
-          children: ['1', '2'],
+          // children: ['1', '2', '3', '4'],
+          children: postgis_file_arr,
           //   // collapsible: true, // 默认展开，true 为折叠
         },
         // {
@@ -37,7 +56,7 @@ export default defineUserConfig({
     },
     navbar: [
       // { text: '首页', link: '/' },
-      { text: '分类', link: '/categories/reco/1/', icon: 'SubVolume' },
+      { text: '分类', link: '/categories/reco/1/', icon: 'Category' },
       { text: '标签', link: '/tags/tag1/1/', icon: 'Tag' },
       {
         text: '文档',
