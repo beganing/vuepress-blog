@@ -21,6 +21,8 @@ const learning_record_dir: string = '.vuepress/dist/docs/learning-record';
 const learning_record_file_arr = getFiles(learning_record_dir);
 // PostGIS 文件列表
 const postgis_file_arr = learning_record_file_arr.filter(item => item.includes('PostGIS'))
+// ArcGIS-Api-for-JS-3.x 文件列表
+const arcgis_api_for_js_3x_file_arr = learning_record_file_arr.filter(item => item.includes('ArcGIS-Api-for-JS-3.x'))
 
 export default defineUserConfig({
   base: '/vuepress-blog/', // 配置路径
@@ -44,6 +46,11 @@ export default defineUserConfig({
         {
           text: 'PostGIS',
           children: postgis_file_arr, // md 文件名列表
+          //   // collapsible: true, // 默认展开，true 为折叠
+        },
+        {
+          text: 'ArcGIS Api for JS 3.x',
+          children: arcgis_api_for_js_3x_file_arr,
           //   // collapsible: true, // 默认展开，true 为折叠
         },
         // {
