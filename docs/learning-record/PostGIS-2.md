@@ -23,7 +23,7 @@ Utility file not found. Please correct the Binary Path in the Preferences dialog
 
 依次打开: `File - Preferences - Paths - Binary paths`, 选择安装目中的`bin`文件
 
-![alt text](./images/2/image1.png)
+![alt text](./images/PostGIS-2/image1.png)
 
 #### 2.1.1.3. 参考
 
@@ -35,20 +35,20 @@ Utility file not found. Please correct the Binary Path in the Preferences dialog
 
 ### 2.2.1. 选择下载的`postgis-workshop`压缩包中的文件
 
-![alt text](./images/2/image2.png)
+![alt text](./images/PostGIS-2/image2.png)
 
 ### 2.2.2. 设置`owner`为`选中状态`
 
-![alt text](./images/2/image3.png)
+![alt text](./images/PostGIS-2/image3.png)
 
 ### 2.2.3. 点击`restore`
 
 右下角出现提示信息
 
-![alt text](./images/2/image4.png)
+![alt text](./images/PostGIS-2/image4.png)
 
 ### 2.2.4. 刷新数据库, 查看数据
 
-![alt text](./images/2/image5.png)
+![alt text](./images/PostGIS-2/image5.png)
 
-![alt text](./images/2/image6.png)
+![alt text](./images/PostGIS-2/image6.png)

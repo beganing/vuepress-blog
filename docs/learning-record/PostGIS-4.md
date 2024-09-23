@@ -26,7 +26,7 @@ SELECT name, ST_AsText(geom) FROM geometries;
 
 > 执行结果
 
-![alt text](./images/4/image1.png)
+![alt text](./images/PostGIS-4/image1.png)
 
 上面的示例 SQL 代码创建了一个名为 **geometries** 的数据表，插入了 5 个几何对象：1 点，1 线，1 多边形，1 带洞多边形，1 集合。最后，使用 SELECT 语句把插入的数据选出来并输出到面板上。
 
@@ -37,7 +37,7 @@ SELECT name, ST_AsText(geom) FROM geometries;
 - 第一个表是``spatial_ref_sys``，它定义了数据库中已知的所有空间参考系统，并将在后面更详细地描述。
 - 第二个表（实际上是一个视图）是``geometry_columns``，它提供了所有“要素”（定义为具有几何属性的对象）的列表，以及这些要素的基本详细信息。
 
-![alt text](./images/4/image2.png)
+![alt text](./images/PostGIS-4/image2.png)
 
 查看数据库中的`geometry_columns`表
 
@@ -49,7 +49,7 @@ SELECT * FROM geometry_columns;
 
 > 返回结果
 
-![alt text](./images/4/image3.png)
+![alt text](./images/PostGIS-4/image3.png)
 
 - `f_table_catalog`、`f_table_schema`和`f_table_name`提供了包含给定几何图形的要素表的完全限定名称。因为PostgreSQL不使用目录，所以`f_table_catalog`通常为空。
 - `f_geometry_column`是包含几何图形的列的名称——对于具有多个几何列的要素表，每个列将有一条记录。
@@ -73,7 +73,7 @@ SELECT name, ST_GeometryType(geom), ST_NDims(geom), ST_SRID(geom)
   FROM geometries;
 ```
 
-![alt text](./images/4/image4.png)
+![alt text](./images/PostGIS-4/image4.png)
 
 ### 4.3.1. 点
 
@@ -92,7 +92,7 @@ SELECT ST_X(geom), ST_Y(geom)
   WHERE name = 'Point';
 ```
 
-![alt text](./images/4/image5.png)
+![alt text](./images/PostGIS-4/image5.png)
 
 ### 4.3.2. 线段
 
@@ -113,7 +113,7 @@ SELECT ST_Length(geom),ST_StartPoint(geom), ST_EndPoint(geom), ST_NPoints(geom)
   WHERE name = 'Linestring';
 ```
 
-![alt text](./images/4/image6.png)
+![alt text](./images/PostGIS-4/image6.png)
 
 ### 4.3.3. 多边形
 
@@ -135,7 +135,7 @@ SELECT name, ST_Area(geom), ST_NRings(geom), ST_ExteriorRing(geom), ST_InteriorR
   WHERE name LIKE 'Polygon%';
 ```
 
-![alt text](./images/4/image7.png)
+![alt text](./images/PostGIS-4/image7.png)
 
 ### 4.3.4. 集合
 
@@ -163,7 +163,7 @@ SELECT name, ST_AsText(geom), ST_NumGeometries(geom), ST_GeometryN(geom,1), ST_A
   WHERE name = 'Collection';
 ```
 
-![alt text](./images/4/image8.png)
+![alt text](./images/PostGIS-4/image8.png)
 
 ## 4.4. 几何的输入输出
 
@@ -196,7 +196,7 @@ SELECT name, ST_AsText(geom), ST_NumGeometries(geom), ST_GeometryN(geom,1), ST_A
 >
 > 以下SQL查询显示了一个:term:`WKB`表示的示例（调用:command:`encode()`是为了将二进制输出转换为ASCII形式以便打印）:
 
-![alt text](./images/4/image9.png)
+![alt text](./images/PostGIS-4/image9.png)
 
 由于WKT和WKB是在:term:`SFSQL`规范中定义的，它们不处理3维或4维几何图形。对于这些情况，PostGIS定义了扩展的常用文本（EWKT）和扩展的常用二进制（EWKB）格式。这些格式提供了与WKT和WKB相同的格式化功能，并添加了维度信息。
 
@@ -206,7 +206,7 @@ SELECT name, ST_AsText(geom), ST_NumGeometries(geom), ST_GeometryN(geom,1), ST_A
 SELECT ST_AsText(ST_GeometryFromText('LINESTRING(0 0 0,1 0 0,1 1 2)'));
 ```
 
-![alt text](./images/4/image10.png)
+![alt text](./images/PostGIS-4/image10.png)
 
 请注意，文本表示发生了变化！这是因为PostGIS的文本输入程序在接受输入时很宽容。它将接受
 
@@ -241,7 +241,7 @@ SELECT 'SRID=4326;POINT(2 2)'::geometry;
 SELECT ST_AsGeoJSON(ST_GeomFromGML('<gml:Point><gml:coordinates>1,1</gml:coordinates></gml:Point>'));
 ```
 
-![alt text](./images/4/image11.png)
+![alt text](./images/PostGIS-4/image11.png)
 
 ## 4.5. 从文本中解析
 

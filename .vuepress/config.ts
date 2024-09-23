@@ -15,9 +15,12 @@ const getFiles = (dir: string) => {
     return file.slice(0, file.lastIndexOf('.'));
   });
 };
-// 获取 postgis 文件夹下的文件
-const postgis_dir: string = '.vuepress/dist/docs/learning-record/PostGIS';
-const postgis_file_arr = getFiles(postgis_dir);
+
+// 获取 learning-record 文件夹下的文件
+const learning_record_dir: string = '.vuepress/dist/docs/learning-record';
+const learning_record_file_arr = getFiles(learning_record_dir);
+// PostGIS 文件列表
+const postgis_file_arr = learning_record_file_arr.filter(item => item.includes('PostGIS'))
 
 export default defineUserConfig({
   base: '/vuepress-blog/', // 配置路径
@@ -37,11 +40,10 @@ export default defineUserConfig({
     lastUpdatedText: '',
     // series 为原 sidebar
     series: {
-      '/docs/learning-record/PostGIS/': [
+      '/docs/learning-record/': [
         {
           text: 'PostGIS',
-          // children: ['1', '2', '3', '4'],
-          children: postgis_file_arr,
+          children: postgis_file_arr, // md 文件名列表
           //   // collapsible: true, // 默认展开，true 为折叠
         },
         // {
@@ -61,7 +63,7 @@ export default defineUserConfig({
       {
         text: '文档',
         children: [
-          { text: '学习记录', link: '/docs/learning-record/PostGIS/1' },
+          { text: '学习记录', link: '/docs/learning-record/PostGIS-1' },
           // { text: 'vuepress-theme-reco', link: '/blogs/other/guide' },
         ],
         icon: 'Document',

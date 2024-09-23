@@ -21,7 +21,7 @@ WHERE name = 'West Village';
 
 > 结果如下
 
-![alt text](./images/5/image1.png)
+![alt text](./images/PostGIS-5/image1.png)
 
 2. **"Pelham St"的几何类型是什么？长度是多少？**
 
@@ -34,7 +34,7 @@ FROM nyc_streets
 WHERE name = 'Pelham St';
 ```
 
-![alt text](./images/5/image2.png)
+![alt text](./images/PostGIS-5/image2.png)
 
 3. **"Broad St"地铁站的 GeoJSON 表示是什么？**
 
@@ -44,7 +44,7 @@ FROM nyc_subway_stations
 WHERE name = 'Broad St';
 ```
 
-![alt text](./images/5/image3.png)
+![alt text](./images/PostGIS-5/image3.png)
 
 4. **纽约市的街道总长度（公里）是多少？**（提示：空间数据的测量单位是米，一公里有 1000 米。）
 
@@ -53,7 +53,7 @@ SELECT Sum(ST_Length(geom))/1000 AS length
 FROM nyc_streets;
 ```
 
-![alt text](./images/5/image4.png)
+![alt text](./images/PostGIS-5/image4.png)
 
 5. **曼哈顿的面积是多少英亩？**
 
@@ -63,7 +63,7 @@ FROM nyc_neighborhoods
 WHERE boroname = 'Manhattan';
 ```
 
-![alt text](./images/5/image5.png)
+![alt text](./images/PostGIS-5/image5.png)
 
 6. **最西的地铁站是哪个？**
 
@@ -74,7 +74,7 @@ ORDER BY ST_X(geom)
 LIMIT 1;
 ```
 
-![alt text](./images/5/image6.png)
+![alt text](./images/PostGIS-5/image6.png)
 
 7. **“哥伦布圆环”（又名哥伦布圆环）有多长？**
 
@@ -84,7 +84,7 @@ FROM nyc_streets
 WHERE name = 'Columbus Cir';
 ```
 
-![alt text](./images/5/image7.png)
+![alt text](./images/PostGIS-5/image7.png)
 
 8. **按类型总结，纽约市的街道长度是多少？**
 
@@ -95,4 +95,4 @@ GROUP BY type
 ORDER BY length DESC;
 ```
 
-![alt text](./images/5/image8.png)
+![alt text](./images/PostGIS-5/image8.png)
