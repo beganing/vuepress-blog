@@ -24,6 +24,12 @@ const postgis_file_arr = learning_record_file_arr.filter(item => item.includes('
 // ArcGIS-Api-for-JS-3.x 文件列表
 const arcgis_api_for_js_3x_file_arr = learning_record_file_arr.filter(item => item.includes('ArcGIS-Api-for-JS-3.x'))
 
+// 获取 software-install 文件夹下的文件
+const software_install_dir: string = '.vuepress/dist/docs/software-install';
+const software_install_file_arr = getFiles(software_install_dir);
+// ArcGIS-Server 文件列表
+const arcgis_server_file_arr = software_install_file_arr.filter(item => item.includes('ArcGIS-Server'))
+
 export default defineUserConfig({
   base: '/vuepress-blog/', // 配置路径
   title: 'zhangslのBlog',
@@ -62,6 +68,13 @@ export default defineUserConfig({
         //   children: ['api'],
         // },
       ],
+      '/docs/software-install/': [
+        {
+          text: 'ArcGIS Server',
+          children: arcgis_server_file_arr, // md 文件名列表
+          //   // collapsible: true, // 默认展开，true 为折叠
+        },
+      ],
     },
     navbar: [
       // { text: '首页', link: '/' },
@@ -71,7 +84,7 @@ export default defineUserConfig({
         text: '文档',
         children: [
           { text: '学习记录', link: '/docs/learning-record/PostGIS-1' },
-          // { text: 'vuepress-theme-reco', link: '/blogs/other/guide' },
+          { text: '软件安装', link: '/docs/software-install/ArcGIS-Server-1' },
         ],
         icon: 'Document',
       },
