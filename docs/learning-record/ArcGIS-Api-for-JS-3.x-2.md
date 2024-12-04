@@ -475,11 +475,11 @@ categories:
         );
         map.addLayer(vecLayer);
         map.addLayer(labelLayer);
-        var username = 'arcgis123';
-        var password = 'arcgis!@#123';
+        var username = 'arcgis';
+        var password = 'arcgis';
         var tokenvalue = $.ajax({
           type: 'POST',
-          url: 'http://221.215.203.10:46080/arcgis/tokens/generateToken',
+          url: 'http://xxx.xx.xx:xxxx/arcgis/tokens/generateToken',
           data: {
             username: username,
             password: password,
@@ -496,9 +496,9 @@ categories:
                 //成功生成token
                 console.log(response.token);
                 var layerUrl =
-                  'http://221.215.203.10:46080/arcgis/rest/services/LX/LXGX3857/MapServer';
+                  'http://xxx.xx.xx:xxxx/arcgis/rest/services/yy/yyyyy/MapServer';
                 IdentityManager.registerToken({
-                  server: 'http://221.215.203.10:46080/arcgis/rest/services',
+                  server: 'http://xxx.xx.xx:xxxx/arcgis/rest/services',
                   token: response.token,
                 });
                 var layer = new ArcGISDynamicMapServiceLayer(layerUrl);
