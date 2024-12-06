@@ -268,6 +268,12 @@ categories:
 
 ### 1.3. 参考
 
+> 官网文档
+
+[令牌和令牌服务](https://help.arcgis.com/zh-cn/arcgisserver/10.0/help/arcgis_server_java_help/index.html#//0092000000p2000000)
+
+> 博客文章
+
 [arcgis api for javascript 3.x 通过"url?token="动态拼接的方式访问 server 的安全服务](https://mp.weixin.qq.com/s/wGe2Gb-eiNpauXwjILwxpA)
 
 ## 2. 使用`IdentityManager.registerToken`注册token
