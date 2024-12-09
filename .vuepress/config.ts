@@ -20,15 +20,21 @@ const getFiles = (dir: string) => {
 const learning_record_dir: string = '.vuepress/dist/docs/learning-record';
 const learning_record_file_arr = getFiles(learning_record_dir);
 // PostGIS 文件列表
-const postgis_file_arr = learning_record_file_arr.filter(item => item.includes('PostGIS'))
+const postgis_file_arr = learning_record_file_arr.filter((item) =>
+  item.includes('PostGIS')
+);
 // ArcGIS-Api-for-JS-3.x 文件列表
-const arcgis_api_for_js_3x_file_arr = learning_record_file_arr.filter(item => item.includes('ArcGIS-Api-for-JS-3.x'))
+const arcgis_api_for_js_3x_file_arr = learning_record_file_arr.filter((item) =>
+  item.includes('ArcGIS-Api-for-JS-3.x')
+);
 
 // 获取 software-install 文件夹下的文件
 const software_install_dir: string = '.vuepress/dist/docs/software-install';
 const software_install_file_arr = getFiles(software_install_dir);
 // ArcGIS-Server 文件列表
-const arcgis_server_file_arr = software_install_file_arr.filter(item => item.includes('ArcGIS-Server'))
+const arcgis_server_file_arr = software_install_file_arr.filter((item) =>
+  item.includes('ArcGIS-Server')
+);
 
 export default defineUserConfig({
   base: '/vuepress-blog/', // 配置路径
@@ -78,8 +84,8 @@ export default defineUserConfig({
     },
     navbar: [
       // { text: '首页', link: '/' },
-      { text: '分类', link: '/categories/reco/1/', icon: 'Category' },
-      { text: '标签', link: '/tags/tag1/1/', icon: 'Tag' },
+      { text: '分类', link: '/categories/WebGIS/1/', icon: 'Category' },
+      { text: '标签', link: '/tags/VuePress/1/', icon: 'Tag' },
       {
         text: '文档',
         children: [
