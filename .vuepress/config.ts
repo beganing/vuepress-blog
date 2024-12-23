@@ -83,9 +83,12 @@ export default defineUserConfig({
       ],
     },
     navbar: [
-      // { text: '首页', link: '/' },
+      { text: '首页', link: '/', icon: 'Home' },
+      { text: '博客', link: '/posts/', icon: 'Blog' },
       { text: '分类', link: '/categories/WebGIS/1/', icon: 'Category' },
       { text: '标签', link: '/tags/VuePress/1/', icon: 'Tag' },
+      { text: '时间轴', link: '/timeline/', icon: 'TimePlot' },
+      { text: '友链', link: '/friendship-link/', icon: 'Friendship' },
       {
         text: '文档',
         children: [
@@ -93,6 +96,13 @@ export default defineUserConfig({
           { text: '软件安装', link: '/docs/software-install/ArcGIS-Server-1' },
         ],
         icon: 'Document',
+      },
+    ],
+    friendshipLinks: [
+      {
+        title: 'zhangslのBlog',
+        logo: 'https://beganing.github.io/vuepress-blog/logo.png',
+        link: 'https://beganing.github.io/vuepress-blog/',
       },
     ],
     // bulletin: {
