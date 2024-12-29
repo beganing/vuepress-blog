@@ -36,6 +36,14 @@ const arcgis_server_file_arr = software_install_file_arr.filter((item) =>
   item.includes('ArcGIS-Server')
 );
 
+// 获取 front-end 文件夹下的文件
+const front_end_dir: string = '.vuepress/dist/docs/front-end';
+const front_end_dir_file_arr = getFiles(front_end_dir);
+// HTML 文件列表
+const html_file_arr = front_end_dir_file_arr.filter((item) =>
+  item.includes('HTML')
+);
+
 export default defineUserConfig({
   base: '/vuepress-blog/', // 配置路径
   title: 'zhangslのBlog',
@@ -81,6 +89,13 @@ export default defineUserConfig({
           //   // collapsible: true, // 默认展开，true 为折叠
         },
       ],
+      '/docs/front-end/': [
+        {
+          text: 'HTML',
+          children: html_file_arr, // md 文件名列表
+          //   // collapsible: true, // 默认展开，true 为折叠
+        },
+      ],
     },
     navbar: [
       { text: '首页', link: '/', icon: 'Home' },
@@ -94,6 +109,13 @@ export default defineUserConfig({
         children: [
           { text: '学习记录', link: '/docs/learning-record/PostGIS-1' },
           { text: '软件安装', link: '/docs/software-install/ArcGIS-Server-1' },
+        ],
+        icon: 'Document',
+      },
+      {
+        text: '面试题',
+        children: [
+          { text: '前端', link: '/docs/front-end/HTML-1' },
         ],
         icon: 'Document',
       },
