@@ -99,7 +99,10 @@ _HTML5_ 的出现，其主要的目标是将互联网语义化，以便更好地
 - 严格模式（标准模式）[_Standars mode_]
 - 几乎标准模式 [_Almost standars mode_]
 
-在控制台，可以通过 `document.compatMode` 来获取当前浏览器的渲染模式
+在 _JavaScript_ 中，可以通过 `document.compatMode` 来获取当前浏览器的渲染模式，返回值如下：
+
+- `BackCompat`：文档处于怪异模式
+- `CSS1Compat`：非怪异模式
 
 > 之所以出现不同的渲染模式，是由于历史原因造成的。
 >
