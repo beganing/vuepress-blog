@@ -27,6 +27,10 @@ const postgis_file_arr = learning_record_file_arr.filter((item) =>
 const arcgis_api_for_js_3x_file_arr = learning_record_file_arr.filter((item) =>
   item.includes('ArcGIS-Api-for-JS-3.x')
 );
+// JavaScript 文件列表
+const javaScript_file_arr = learning_record_file_arr.filter((item) =>
+  item.includes('JavaScript')
+);
 
 // 获取 software-install 文件夹下的文件
 const software_install_dir: string = '.vuepress/dist/docs/software-install';
@@ -77,10 +81,10 @@ export default defineUserConfig({
         //   text: 'OpenLayers',
         //   children: ['theme', 'plugin'],
         // },
-        // {
-        //   text: '前端',
-        //   children: ['api'],
-        // },
+        {
+          text: 'JavaScript',
+          children: javaScript_file_arr,
+        },
       ],
       '/docs/software-install/': [
         {
