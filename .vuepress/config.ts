@@ -47,6 +47,10 @@ const front_end_dir_file_arr = getFiles(front_end_dir);
 const html_file_arr = front_end_dir_file_arr.filter((item) =>
   item.includes('HTML')
 );
+// HTML 文件列表
+const front_end_javaScript_file_arr = front_end_dir_file_arr.filter((item) =>
+  item.includes('JavaScript')
+);
 
 export default defineUserConfig({
   base: '/vuepress-blog/', // 配置路径
@@ -97,6 +101,11 @@ export default defineUserConfig({
         {
           text: 'HTML',
           children: html_file_arr, // md 文件名列表
+          //   // collapsible: true, // 默认展开，true 为折叠
+        },
+        {
+          text: 'JavaScript',
+          children: front_end_javaScript_file_arr, // md 文件名列表
           //   // collapsible: true, // 默认展开，true 为折叠
         },
       ],
