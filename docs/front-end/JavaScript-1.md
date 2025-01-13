@@ -140,3 +140,71 @@ console.log(a); // 13
 ```
 
 同一作用域中，**后面的声明会覆盖前面的声明**。
+
+### 1.3. let 关键字
+
+#### 1.3.1. 有块级作用域的概念
+
+```javascript
+{
+  /* Block Scope */
+  let a = 10;
+}
+console.log(a); // a is not defined
+```
+
+上面代码执行报错，说明存在 _Block Scope_ 概念。
+
+#### 1.3.2. 不存在变量提升
+
+```javascript
+{
+  /* Block Scope */
+  console.log(a); // Cannot access 'a' before initialization
+  let a = 10;
+}
+```
+
+上面代码执行报错，无法在初始化之前访问，说明不存在变量提升。
+
+#### 1.3.3. 暂时性死区
+
+```javascript
+if (1) {
+  // console.log(a); // Cannot access 'a' before initialization
+
+  let a;
+
+  console.log(a); // undefined
+
+  a = 123;
+
+  console.log(a); // 123
+}
+```
+
+上面代码中，使用 _let_/_const_ 声明变量 _a_，导致绑定这个块级作用域，所以在声明之前，打印变量 _a_ 会报错。
+
+这是因为使用 _let_/_const_ 声明的变量会存在暂时性死区。
+
+_ES6_ 规定，_let_/_const_ 命令会使区块形成封闭的作用域。若在声明之前使用变量，就会报错。总之，在代码块内，使用 _let_/_const_ 命令声明变量之前，该变量都是不可用的。这在语法上，称为**暂时性死区**（_temporal dead zone_，简称 **_TDZ_**）
+
+#### 1.3.4. 同一块作用域中不允许重复声明
+
+```javascript
+{
+  //Block Scope
+  let A;
+  var A; //SyntaxError: Identifier 'A' has already been declared
+}
+{
+  //Block Scope
+  var A;
+  let A; //SyntaxError: Identifier 'A' has already been declared
+}
+{
+  //Block Scope
+  let A;
+  let A; //SyntaxError: Identifier 'A' has already been declared
+}
+```
