@@ -31,6 +31,10 @@ const arcgis_api_for_js_3x_file_arr = learning_record_file_arr.filter((item) =>
 const javaScript_file_arr = learning_record_file_arr.filter((item) =>
   item.includes('JavaScript')
 );
+// Canvas 文件列表
+const canvas_file_arr = learning_record_file_arr.filter((item) =>
+  item.includes('Canvas')
+);
 
 // 获取 software-install 文件夹下的文件
 const software_install_dir: string = '.vuepress/dist/docs/software-install';
@@ -89,6 +93,10 @@ export default defineUserConfig({
           text: 'JavaScript',
           children: javaScript_file_arr,
         },
+        {
+          text: 'Canvas',
+          children: canvas_file_arr,
+        },
       ],
       '/docs/software-install/': [
         {
@@ -127,9 +135,7 @@ export default defineUserConfig({
       },
       {
         text: '面试题',
-        children: [
-          { text: '前端', link: '/docs/front-end/HTML-1' },
-        ],
+        children: [{ text: '前端', link: '/docs/front-end/HTML-1' }],
         icon: 'Document',
       },
     ],
