@@ -705,3 +705,63 @@ ctx.stroke();
 > 效果如下：
 
 ![alt text](./images/Canvas-3/image18.png)
+
+## 3.12. 绘制文本
+
+`ctx.fillText(textStr, x, y [, maxWidth])` 方法，绘制填充文本。
+
+`ctx.StrokeText(textStr, x, y [, maxWidth])` 方法，绘制描边文本。
+
+- _textStr_ 文本内容
+- _x_, _y_ 文本位置坐标
+- _maxWidth_ 文本最大宽度。如果 `文本宽度 > 最大宽度` 就会压缩文本在 _maxWidth_ 范围内。
+
+`ctx.font` 属性，设置文本样式 ju'hao
+
+- 粗体
+- 斜体
+- 大小
+- 字体（必须设置，否则其他样式无效）
+
+`ctx.textAlign` 属性，设置基于锚点水平位置。
+
+- left（默认）
+- center
+- right
+
+`ctx.textBaseline` 属性，设置基于锚点的垂直位置。
+
+- baseline（默认）
+- bottom
+- middle
+- top
+
+```javascript
+const ctx = canvas.getContext('2d');
+
+ctx.beginPath();
+ctx.font = 'bold italic 50px sans-serif';
+ctx.fillText('hello', 100, 200);
+
+/* 默认锚点在左下角 */
+ctx.beginPath();
+ctx.font = 'bold italic 30px sans-serif';
+ctx.strokeText('hello', 300, 200);
+
+/* 设置最大宽度, 超出则压缩 */
+ctx.beginPath();
+ctx.font = 'bold italic 50px sans-serif';
+ctx.fillText('hello', 100, 300, 100); // 设置最大宽度 100
+
+/* 锚点在中心位置 */
+ctx.beginPath();
+ctx.font = 'bold italic 30px sans-serif';
+ctx.textAlign = 'center';
+ctx.textBaseline = 'baseline';
+ctx.strokeStyle = '#f00';
+ctx.strokeText('hello', 300, 200);
+```
+
+> 效果如下：
+
+![alt text](./images/Canvas-3/image19.png)
