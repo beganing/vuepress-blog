@@ -572,3 +572,38 @@ ctx.stroke();
 > 效果如下：
 
 ![alt text](./images/Canvas-3/image14.png)
+
+## 3.10. 绘制椭圆
+
+`ctx.ellipse(x, y, rx, ry, rotate, startAngle, endAngle, dir)`
+
+- _x_, _y_ 原点坐标
+- _rx_, _ry_ _x_ 轴半径，_y_ 轴半径
+- _rotate_ _x_ 轴旋转角度（弧度值，顺时针）
+- _startAngle_ 起始点角度。三点钟方向为 _0_ 度
+- _endAngle_ 终点角度
+- _dir_ 绘制方向。_false_ - 顺时针（默认），_true_ - 逆时针。
+
+```javascript
+const ctx = canvas.getContext('2d');
+
+ctx.beginPath();
+ctx.ellipse(110, 100, 100, 50, 0, 0, Math.PI * 2);
+ctx.stroke();
+
+ctx.beginPath();
+ctx.ellipse(370, 100, 100, 50, 0, 0, Math.PI / 2);
+ctx.stroke();
+
+ctx.beginPath();
+ctx.ellipse(110, 300, 100, 50, 0, 0, Math.PI / 2, true);
+ctx.stroke();
+
+ctx.beginPath();
+ctx.ellipse(370, 300, 100, 50, Math.PI / 4, 0, Math.PI * 2);
+ctx.stroke();
+```
+
+> 效果如下：
+
+![alt text](./images/Canvas-3/image15.png)
