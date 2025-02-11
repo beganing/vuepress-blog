@@ -607,3 +607,101 @@ ctx.stroke();
 > 效果如下：
 
 ![alt text](./images/Canvas-3/image15.png)
+
+## 3.11. 绘制曲线
+
+### 3.11.1. 贝塞尔曲线绘制原理
+
+_canvas_ 提供了一种绘制曲线的方式：贝塞尔曲线。
+
+目前提供了二次贝塞尔曲线和三次贝塞尔曲线的 _API_。
+
+- 有一个起点和终点
+- 在起终点之间，有多个控制点
+  - 有一个控制点，称为二次贝塞尔曲线
+  - 有两个控制点，称为三次贝塞尔曲线
+- 从起点开始，经过控制点，最后到终点，依次连线
+- 提供一个参数 _t_，取值范围是 [0-1]。每一个 _t_ 都存在以下情况：
+  - 在任意线段中，从起点到终点，存在一个中间点，使得 `前部分线段/整体线段 = t`
+  - 对每条线段的这些点，再依次连接，形成了一批新的线段
+  - 在新的一批连线中，依然存在那些符合比例 _t_ 的点
+  - 重复之前连线、找点的操作
+  - 直到找到最后一个点，就是此贝塞尔曲线，在当前比例 _t_ 时，曲线的点
+- 当 _t_ 在 [0-1] 之间变化，每次都会有一个这样的点，这些点连接后就形成了贝塞尔曲线
+
+> 图示如下：
+
+![alt text](./images/Canvas-3/image16.gif)
+
+![alt text](./images/Canvas-3/image17.gif)
+
+### 3.11.2. 绘制
+
+`ctx.quadraticCurveTo(cx, cy, ex, ey)`
+
+- _cx_, _cy_ 控制点坐标
+- _ex_, _ey_ 终点坐标
+- 起点坐标可以通过 _moveTo_ 设置，或者时上一次绘图的结尾
+
+```javascript
+/* 二次贝塞尔曲线 */
+const ctx = canvas.getContext('2d');
+
+ctx.fillStyle = 'f00';
+
+ctx.beginPath();
+ctx.arc(100, 200, 5, 0, Math.PI * 2);
+ctx.fill();
+
+ctx.beginPath();
+ctx.arc(150, 100, 5, 0, Math.PI * 2);
+ctx.fill();
+
+ctx.beginPath();
+ctx.arc(300, 200, 5, 0, Math.PI * 2);
+ctx.fill();
+
+ctx.beginPath();
+ctx.moveTo(100, 200);
+ctx.quadraticCurveTo(150, 100, 300, 200);
+ctx.stroke();
+```
+
+`ctx.bezierCurveTo(c1x, c1y, c2x, c2y, ex, ey)`
+
+- _cx1_, _cy1_ 控制点 1 坐标
+- _cx2_, _cy2_ 控制点 2 坐标
+- _ex_, _ey_ 终点坐标
+- 起点坐标可以通过 _moveTo_ 设置，或者时上一次绘图的结尾
+
+```javascript
+/* 三次贝塞尔曲线 */
+const ctx = canvas.getContext('2d');
+
+ctx.fillStyle = 'f00';
+
+ctx.beginPath();
+ctx.arc(100, 200, 5, 0, Math.PI * 2);
+ctx.fill();
+
+ctx.beginPath();
+ctx.arc(150, 100, 5, 0, Math.PI * 2);
+ctx.fill();
+
+ctx.beginPath();
+ctx.arc(250, 300, 5, 0, Math.PI * 2);
+ctx.fill();
+
+ctx.beginPath();
+ctx.arc(300, 200, 5, 0, Math.PI * 2);
+ctx.fill();
+
+ctx.beginPath();
+ctx.moveTo(100, 200);
+ctx.bezierCurveTo(150, 100, 250, 300, 300, 200);
+ctx.stroke();
+```
+
+> 效果如下：
+
+![alt text](./images/Canvas-3/image18.png)
