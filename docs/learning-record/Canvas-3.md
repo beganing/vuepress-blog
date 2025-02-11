@@ -479,3 +479,96 @@ ctx.stroke();
 > 效果如下：
 
 ![alt text](./images/Canvas-3/image11.png)
+
+## 3.8. closePath 方法
+
+多个连续线条合围的区域，是可以使用 `ctx.fill()` 进行填充的。
+
+如果需要首尾节点自动闭合，可以使用 `ctx.closePath()` 方法。
+
+```javascript
+const ctx = canvas.getContext('2d');
+
+ctx.beginPath();
+ctx.lineWidth = 10;
+ctx.moveTo(50, 50);
+ctx.lineTo(50, 150);
+ctx.lineTo(150, 150);
+ctx.closePath();
+ctx.stroke();
+ctx.fill();
+```
+
+> 效果如下：
+
+![alt text](./images/Canvas-3/image12.png)
+
+## 3.9. 绘制圆弧
+
+### 3.9.1. arc
+
+`ctx.arc(x, y, startAngle, endAngle [, dir])`
+
+- _x_, _y_ 原点坐标
+- _r_ 半径
+- _startAngle_ 起始点角度（弧度值）。默认原点到 _x_ 轴正向为 _0_ 度点。
+- _endAngle_ 结束点角度（弧度值）
+- _dir_ 绘制方向。_false_ - 顺时针（默认），_true_ - 逆时针。
+
+设计圆弧时，用的是角度。传递参数时，传递的是弧度。
+
+- `1° = Math.PI / 180 (弧度)`
+
+```javascript
+const ctx = canvas.getContext('2d');
+
+ctx.beginPath();
+ctx.arc(100, 100, 50, 0, Math.PI * 2);
+ctx.stroke();
+
+ctx.beginPath();
+ctx.arc(300, 100, 50, 0, Math.PI);
+ctx.stroke();
+
+ctx.beginPath();
+ctx.arc(100, 300, 50, 0, Math.PI, true);
+ctx.stroke();
+
+ctx.beginPath();
+ctx.arc(300, 300, 50, Math.PI / 2, Math.PI);
+ctx.stroke();
+```
+
+> 效果如下：
+
+![alt text](./images/Canvas-3/image13.png)
+
+### 3.9.2. arcTo
+
+`ctx.arcTo(x1, y1, x2, y2, r)`
+
+由三个控制点实现圆弧的绘制
+
+- `moveTo` 或上一次图形结束的点，为第一个点
+- _x1_, _y1_ 第二个点
+- _x2_, _y2_ 第三个点
+
+三个点依次连线，两条线会形成一个夹角。根据 _r_ 绘制圆弧，保证与两个线条相切。
+
+```javascript
+const ctx = canvas.getContext('2d');
+
+ctx.beginPath();
+ctx.arc(150, 150, 50, 0, Math.PI * 2);
+ctx.stroke();
+
+ctx.beginPath();
+ctx.lineWidth = 10;
+ctx.moveTo(100, 150);
+ctx.arcTo(100, 200, 150, 200, 50);
+ctx.stroke();
+```
+
+> 效果如下：
+
+![alt text](./images/Canvas-3/image14.png)
