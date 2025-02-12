@@ -302,3 +302,110 @@ btn.onclick = () => {
 
 - 设置同源策略。`img.crossOrigin = 'anonymous'`，`video` 也是一样。
 - 用服务器启动（比如 _Live Server_）。
+
+## 4.5. 图像像素处理
+
+`ImageData` 对象，包含了某一个区域内的像素值。
+
+- `imageData.width`
+- `imageData.height`
+- `imageData.data` _Array_ 类型，包含区域内所有的像素值（_rgba_）
+  - 一维数组，每四个表示一个像素值。
+
+`ctx.getImageData(x, y, width, height)` 方法，获取画布中指定区域的 `ImageData` 对象。
+
+- 获得 `ImageData` 对象后，就可以通过其获得每一个像素的值，也可以设置每一个像素的值
+- 设置之后不会默认生效，还需要重新设置画布的 `ImageData`
+
+`ctx.putImageData(imageData, x, y)` 方法，将数据从已有的 `ImageData` 对象绘制到画布上。
+
+```javascript
+const ctx = canvas.getContext('2d');
+
+ctx.beginPath();
+const img = new Image();
+img.src = '../../imgs/液位计.png';
+img.onload = () => {
+  ctx.drawImage(img, 100, 100, 100, 200);
+
+  // 获取像素
+  const imageData = ctx.getImageData(100, 100, 100, 200);
+
+  // 遍历像素, 进行处理
+  for (let i = 0; i < imageData.data.length; i += 4) {
+    // 筛选符合条件的像素进行处理
+    if (imageData.data[i + 3] === 0) {
+      imageData.data[i + 0] = 255;
+      imageData.data[i + 1] = 0;
+      imageData.data[i + 2] = 0;
+      imageData.data[i + 3] = 255; // 此处透明度取值范围是 [0-255]
+    }
+  }
+
+  // 修改像素
+  ctx.putImageData(imageData, 200, 100);
+};
+```
+
+> 效果如下：
+
+![alt text](./images/Canvas-4/image6.png)
+
+## 4.6. 图像填充
+
+可以引入图像，作为填充背景，也可以是描边背景。图像源可以有多种，比如 `img`，`canvas`，`video`。
+
+### 4.6.1. 创建
+
+`ctx.createPattern(imgSource, repetition)` 方法，创建一个图案对象（CanvasPattern）。
+
+- _imgSource_ 图像源
+- _repetition_ 重复机制
+  - _repeat_
+  - _repeat-x_
+  - _repeat-y_
+  - _no-repeat_
+
+### 4.6.2. 使用
+
+`ctx.fillStyle = pattern` 设置到填充样式
+
+```javascript
+/* 填充 */
+const ctx = canvas.getContext('2d');
+
+ctx.beginPath();
+const img = new Image();
+img.src = '../../imgs/CaretUp.png';
+img.onload = () => {
+  const pattern = ctx.createPattern(img, 'repeat'); // repeat, repeat-x, repeat-y, no-repeat
+  ctx.fillStyle = pattern;
+  ctx.rect(0, 0, 200, 200);
+  ctx.fill();
+};
+```
+
+`ctx.strokeStyle = pattern` 设置到描边样式
+
+```javascript
+/* 描边 */
+const ctx = canvas.getContext('2d');
+ctx.beginPath();
+const img = new Image();
+img.src = '../../imgs/CaretUp.png';
+img.onload = () => {
+  const pattern = ctx.createPattern(img, 'repeat');
+  ctx.strokeStyle = pattern;
+  ctx.lineWidth = 40;
+  ctx.rect(30, 30, 300, 300);
+  ctx.stroke();
+};
+```
+
+> 效果如下：
+
+![alt text](./images/Canvas-4/image7.png)
+
+> **注意**
+>
+> 图案平铺的样式，都是基于画布坐标系的原点开始的。
