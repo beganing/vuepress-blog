@@ -409,3 +409,32 @@ img.onload = () => {
 > **注意**
 >
 > 图案平铺的样式，都是基于画布坐标系的原点开始的。
+
+> 经测试，使用 `img.style.width = '100px'` 设置样式无效，因为 `canvas` 绘制图片时使用的是图片的原始尺寸。
+>
+> 可以通过 `drawImage()` 将图片绘制到一个临时的 `canvas` 上，然后再使用。
+
+```javascript
+const ctx = canvas.getContext('2d');
+ctx.beginPath();
+const img = new Image();
+img.src = '../../imgs/太空人.png';
+/* 设置无效 */
+// img.style.width = '100px';
+// img.style.height = '100px';
+img.onload = () => {
+  // 创建一个临时 canvas 用于缩放图片
+  const tempCanvas = document.createElement('canvas');
+  tempCanvas.width = 100; // 目标宽度
+  tempCanvas.height = 100; // 目标高度
+  const tempCtx = tempCanvas.getContext('2d');
+  tempCtx.drawImage(img, 0, 0, 100, 100); // 缩放图片
+
+  const pattern = ctx.createPattern(tempCanvas, 'repeat');
+  ctx.fillStyle = pattern;
+  ctx.strokeStyle = '#f00';
+  ctx.rect(0, 0, 400, 400);
+  ctx.stroke();
+  ctx.fill();
+};
+```
