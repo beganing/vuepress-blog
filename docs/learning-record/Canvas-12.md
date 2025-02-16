@@ -156,3 +156,184 @@ categories:
 > 效果如下：
 
 ![alt text](./images/Canvas-12/image1.gif)
+
+## 12.2. 粒子烟花
+
+有两个过程：
+
+- 烟花升空
+  - 由多个小球组成一个烟花升空拖尾效果
+  - 从上到下，小球半径依次减小，透明度依次增大
+  - 上升过程中，整体透明度依次增大
+- 烟花爆炸
+  - 烟花主体消失
+  - 绘制一组小颗粒
+  - 沿着圆弧扩散
+
+可以存在多个烟花，升空状态和爆炸状态可以共存。所以需要不断地重新绘制。
+
+涉及的对象：
+
+- 烟花对象
+- 小球对象，组成烟花主体
+- 粒子对象，爆炸中的粒子
+
+从升空到爆炸：
+
+- 每隔一段时间，升空一个烟花
+- 当屏幕中超过三个烟花时，最开始的就可以爆炸了
+- 爆炸的时候，烟花主体消失（不再绘制）
+- 绘制爆炸后产生的粒子，每次绘制时，改变其位置
+
+```javascript
+let canvas = document.createElement('canvas');
+document.body.appendChild(canvas);
+if (!canvas.getContext) {
+  console.log('浏览器版本过低，不支持 canvas，请升级或更换浏览器');
+}
+canvas.width = window.innerWidth;
+canvas.height = window.innerHeight;
+
+let ctx = canvas.getContext('2d');
+ctx.translate(0, canvas.height);
+ctx.scale(1, -1);
+
+class Fireworks {
+  constructor(x, y) {
+    this.x = x;
+    this.y = y;
+    this.r = 6;
+    this.opacity = 1;
+    this.count = 400;
+    this.particiles = [];
+  }
+  // 绘制多个小球
+  draw() {
+    for (let i = 0; i < 100; i++) {
+      let r = this.r - i / 15;
+      r = r > 0 ? r : 0;
+      this.opacity = this.opacity < 0.2 ? 0.2 : this.opacity;
+      const ball = new Ball(
+        this.x,
+        this.y - i,
+        r,
+        `rgba(200, 200, 50, ${this.opacity - i / 100})`
+      );
+      ball.draw();
+    }
+  }
+  bomb() {
+    // 绘制爆炸的粒子
+    if (this.particiles.length === 0) {
+      // 首次绘制
+      const hd = (Math.PI * 2) / this.count;
+      const color = `rgba(${Math.random() * 256},${Math.random() * 256},${
+        Math.random() * 256
+      },${Math.random() * 256})`;
+      for (let i = 0; i < this.count; i++) {
+        const dirx = Math.cos(hd * i) * Math.random() * 4;
+        const diry = Math.sin(hd * i) * Math.random() * 4;
+        const particile = new Particile(this.x, this.y, dirx, diry, color);
+        this.particiles.push(particile);
+        particile.draw();
+      }
+    } else {
+      // 已经爆炸的粒子，重绘即可
+      this.particiles.forEach((particile) => {
+        particile.update();
+      });
+    }
+  }
+}
+
+class Ball {
+  constructor(x, y, r, color) {
+    this.x = x;
+    this.y = y;
+    this.r = r;
+    this.color = color;
+  }
+  draw() {
+    ctx.save();
+
+    ctx.beginPath();
+    ctx.fillStyle = this.color;
+    ctx.arc(this.x, this.y, this.r, 0, Math.PI * 2);
+    ctx.fill();
+
+    ctx.restore();
+  }
+}
+
+class Particile {
+  constructor(x, y, dirx, diry, color) {
+    this.x = x;
+    this.y = y;
+    this.dirx = dirx;
+    this.diry = diry;
+    this.r = 3;
+    this.color = color;
+  }
+  draw() {
+    ctx.save();
+
+    ctx.beginPath();
+    ctx.fillStyle = this.color;
+    ctx.arc(this.x, this.y, this.r, 0, Math.PI * 2);
+    ctx.fill();
+
+    ctx.restore();
+  }
+  update() {
+    this.x += this.dirx;
+    this.y += this.diry;
+    this.dirx *= 0.98;
+    this.diry *= 0.98;
+    this.draw();
+  }
+}
+
+const fireworksList = [];
+const bombList = [];
+let sum = 0;
+const animate = () => {
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+  if (sum % 150 === 0) {
+    const x = (Math.random() * canvas.width * 3) / 4 + canvas.width / 8;
+    const y = Math.random() * 100;
+    const fire = new Fireworks(x, y);
+
+    fireworksList.push(fire);
+  }
+
+  if (fireworksList.length >= 4) {
+    const fire = fireworksList.shift();
+    bombList.push(fire);
+  }
+
+  if (bombList.length >= 4) {
+    bombList.shift();
+  }
+
+  fireworksList.forEach((fire) => {
+    fire.y += 1;
+    fire.opacity -= 0.003;
+    fire.draw();
+  });
+
+  bombList.forEach((fire) => {
+    fire.bomb();
+  });
+
+  sum++;
+
+  requestAnimationFrame(animate);
+};
+
+animate();
+```
+
+> 效果如下：
+
+![alt text](./images/Canvas-12/image2.gif)
