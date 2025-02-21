@@ -124,7 +124,7 @@ export default defineUserConfig({
       { text: '分类', link: '/categories/WebGIS/1/', icon: 'Category' },
       { text: '标签', link: '/tags/VuePress/1/', icon: 'Tag' },
       { text: '时间轴', link: '/timeline/', icon: 'TimePlot' },
-      { text: '友链', link: '/friendship-link/', icon: 'Friendship' },
+      // { text: '友链', link: '/friendship-link/', icon: 'Friendship' },
       {
         text: '文档',
         children: [
